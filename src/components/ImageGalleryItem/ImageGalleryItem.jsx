@@ -23,7 +23,7 @@ class ImageGalleryItem extends Component {
       const { webformatURL, largeImageURL } = this.props.image;
       return (
          <li className={css.galleryItem} onClick={this.openModal}>
-            <img src={webformatURL} alt="Search image" className={css.galleryImage} loading="lazy  " />
+            <img src={webformatURL} alt="Search" className={css.galleryImage} loading="lazy  " />
             {this.state.isOpen && (
                <Modal 
                   closeModal={this.closeModal}

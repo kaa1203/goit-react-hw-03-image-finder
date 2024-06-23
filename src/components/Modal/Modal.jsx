@@ -20,7 +20,7 @@ class Modal extends Component {
       return(
          <div className={css.overlay}>
             <div className={css.modal}>
-               <img src={largeImageURL} alt="Search Image" loading="lazy"/>
+               <img src={largeImageURL} alt="modal" loading="lazy"/>
             </div>
          </div>
       );
