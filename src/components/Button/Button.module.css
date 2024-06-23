@@ -1,0 +1,15 @@
+.loadButton {
+   display: flex;
+   justify-content: center;
+   margin: 15px auto;
+   padding: 14px 25px;
+   cursor: pointer;
+   background-color: #4651b3;
+   color: white;
+   border-radius: 4px;
+   border: none;
+}
+
+.loadButton:hover {
+   background-color: #2736bd;   
+}

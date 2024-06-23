@@ -1,0 +1,13 @@
+.galleryItem {
+   width: calc(100% / 4 - 20px);
+   cursor: pointer;
+}
+
+.galleryImage:hover {
+   scale: 1.08;
+}
+
+.galleryImage {
+   height: 260px;
+   border-radius: 20px;
+}
