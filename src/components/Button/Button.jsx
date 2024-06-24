@@ -1,7 +1,12 @@
 import { Component } from "react";
-import css from "./Button.module.css"
+import css from "./Button.module.css";
+import PropTypes from "prop-types";
 
 class Button extends Component {
+   static = {
+      loadMore: PropTypes.func.isRequired
+   }
+
    handleOnClick = () => {
       this.props.loadMore();
    }

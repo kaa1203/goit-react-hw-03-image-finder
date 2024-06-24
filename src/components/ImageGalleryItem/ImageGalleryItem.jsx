@@ -1,8 +1,16 @@
 import { Component } from "react";
 import css from "./ImageGalleryItem.module.css"
 import Modal from "components/Modal/Modal";
+import PropTypes from "prop-types";
 
 class ImageGalleryItem extends Component {
+   static propTypes = {
+      image: PropTypes.shape({
+         webformatURL: PropTypes.string.isRequired,
+         largeImageURL: PropTypes.string.isRequired, 
+      }).isRequired
+   }
+
    state = {
       isOpen: false,
    }

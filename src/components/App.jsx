@@ -4,6 +4,7 @@ import ImageGallery from "./ImageGallery/ImageGallery";
 import Loader from "./Loader/Loader";
 import Button from "./Button/Button";
 import fetchQuery from "../pixabay-api";
+import toast, { Toaster } from "react-hot-toast";
 
 class App extends Component {
   state = {
@@ -33,11 +34,15 @@ class App extends Component {
         fetchQuery(searchQuery, currentPage).then( val => {
   
           const { hits, totalHits } = val;
-  
-          if (hits.length === 0) {
-            return console.log("No results found!")
-          }
           
+          if (hits.length > 0 && currentPage === 1) {
+            toast.success(`Success! Showing ${totalHits} images!`);
+          } 
+          
+          if (hits.length === 0) {
+            toast.error("No results found!")
+          }
+
           this.setState(prevState => ({
             images: currentPage === 1 ? hits : [...prevState.images, ...hits],
             isLoading: false,
@@ -45,9 +50,10 @@ class App extends Component {
           }));
         });
       }, 500);
+      
     } catch (error) {
       this.setState({ isError: true});
-      console.error(error);
+      toast.error(error);
     } finally {
       this.setState({isLoading: false});
     }
@@ -68,14 +74,11 @@ class App extends Component {
       this.setState(prevState => ({
         currentPage: prevState.currentPage + 1
       })); 
-    } else {
-      console.log("You've reached the end!");
     }
   }
 
   render() {
     let { isError, isLoading, isEnd, images, currentPage } = this.state;
-    console.log(isLoading);
     return (
       <>
         <Searchbar setQuery={this.setQuery}/>
@@ -85,6 +88,10 @@ class App extends Component {
           <Button loadMore={this.loadMore}/>
         )}
         {isLoading && currentPage > 1 && (<Loader/>)}
+        <Toaster
+          position="top-right"
+          reverseOrder={false}
+        />
       </>
     );
   }
