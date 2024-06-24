@@ -1,7 +1,7 @@
 .loadButton {
    display: flex;
    justify-content: center;
-   margin: 15px auto;
+   margin: 15px auto 30px;
    padding: 14px 25px;
    cursor: pointer;
    background-color: #4651b3;

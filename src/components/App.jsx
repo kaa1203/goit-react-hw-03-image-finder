@@ -21,14 +21,12 @@ class App extends Component {
     if (prevState.searchQuery !== searchQuery || 
         prevState.currentPage !== currentPage) {
         await this.fetchImages();
+        this.setState({ isLoading: true });
     }
   }
   
   fetchImages = async () => {
-    // this.setState({ isLoading: true });
     const { searchQuery, currentPage } = this.state;
-    
-    this.setState({ isLoading: true });
     
     try {
       setTimeout(() => {
@@ -43,7 +41,7 @@ class App extends Component {
           this.setState(prevState => ({
             images: currentPage === 1 ? hits : [...prevState.images, ...hits],
             isLoading: false,
-            isEnd: prevState.images.length + hits.length <= totalHits,
+            isEnd: prevState.images.length + hits.length >= totalHits,
           }));
         });
       }, 500);
@@ -61,31 +59,32 @@ class App extends Component {
         searchQuery: query,
         currentPage: 1,
         isEnd: false
-        // isLoading: true,
       });
     }
   }
 
   loadMore = () => {
-    if (this.state.isEnd) {
+    if (!this.state.isEnd) {
       this.setState(prevState => ({
         currentPage: prevState.currentPage + 1
       })); 
     } else {
-      console.log("You've reached the end!")
+      console.log("You've reached the end!");
     }
   }
 
   render() {
-    let { isError, isLoading, isEnd, images } = this.state;
+    let { isError, isLoading, isEnd, images, currentPage } = this.state;
+    console.log(isLoading);
     return (
       <>
         <Searchbar setQuery={this.setQuery}/>
-        {isLoading && (<Loader/>)}
+        {isLoading && currentPage === 1 && (<Loader/>)}
         <ImageGallery images={images}/>
-        {!isLoading && isEnd && !isError && images.length > 0 &&(
+        {!isLoading && !isEnd && !isError && images.length > 0 &&(
           <Button loadMore={this.loadMore}/>
         )}
+        {isLoading && currentPage > 1 && (<Loader/>)}
       </>
     );
   }
